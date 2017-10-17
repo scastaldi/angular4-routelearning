@@ -18,6 +18,7 @@ var MessageComponent = (function () {
     }
     MessageComponent.prototype.close = function () {
         // Close the popup.
+        this.messageService.close();
     };
     return MessageComponent;
 }());

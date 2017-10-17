@@ -6,6 +6,7 @@ import { MessageService } from '../messages/message.service';
 @Injectable()
 export class AuthService {
     currentUser: IUser;
+    redirectUrl: string = '/products';
 
     constructor(private messageService: MessageService) { }
 

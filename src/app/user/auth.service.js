@@ -13,6 +13,7 @@ var message_service_1 = require("../messages/message.service");
 var AuthService = (function () {
     function AuthService(messageService) {
         this.messageService = messageService;
+        this.redirectUrl = '/products';
     }
     AuthService.prototype.isLoggedIn = function () {
         return !!this.currentUser;

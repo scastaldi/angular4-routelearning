@@ -13,7 +13,10 @@ var product_edit_component_1 = require("./product-edit.component");
 var product_filter_pipe_1 = require("./product-filter.pipe");
 var product_service_1 = require("./product.service");
 var product_resolver_service_1 = require("./product-resolver.service");
+var product_edit_info_component_1 = require("./product-edit-info.component");
+var product_edit_tags_component_1 = require("./product-edit-tags.component");
 var shared_module_1 = require("../shared/shared.module");
+var auth_guard_service_1 = require("../user/auth-guard.service");
 var ProductModule = (function () {
     function ProductModule() {
     }
@@ -26,17 +29,28 @@ ProductModule = __decorate([
             router_1.RouterModule.forChild([
                 {
                     path: 'products',
-                    component: product_list_component_1.ProductListComponent
-                },
-                {
-                    path: 'products/:id',
-                    component: product_detail_component_1.ProductDetailComponent,
-                    resolve: { product: product_resolver_service_1.ProductResolver }
-                },
-                {
-                    path: 'products/:id/edit',
-                    component: product_edit_component_1.ProductEditComponent,
-                    resolve: { product: product_resolver_service_1.ProductResolver }
+                    canActivate: [auth_guard_service_1.AuthGuardService],
+                    children: [
+                        {
+                            path: '',
+                            component: product_list_component_1.ProductListComponent,
+                        },
+                        {
+                            path: ':id',
+                            component: product_detail_component_1.ProductDetailComponent,
+                            resolve: { product: product_resolver_service_1.ProductResolver }
+                        },
+                        {
+                            path: ':id/edit',
+                            component: product_edit_component_1.ProductEditComponent,
+                            resolve: { product: product_resolver_service_1.ProductResolver },
+                            children: [
+                                { path: '', redirectTo: 'info', pathMatch: 'full' },
+                                { path: 'info', component: product_edit_info_component_1.ProductEditInfoComponent },
+                                { path: 'tags', component: product_edit_tags_component_1.ProductEditTagsComponent }
+                            ]
+                        }
+                    ]
                 }
             ]),
         ],
@@ -44,7 +58,9 @@ ProductModule = __decorate([
             product_list_component_1.ProductListComponent,
             product_detail_component_1.ProductDetailComponent,
             product_edit_component_1.ProductEditComponent,
-            product_filter_pipe_1.ProductFilterPipe
+            product_filter_pipe_1.ProductFilterPipe,
+            product_edit_info_component_1.ProductEditInfoComponent,
+            product_edit_tags_component_1.ProductEditTagsComponent
         ],
         providers: [
             product_service_1.ProductService,

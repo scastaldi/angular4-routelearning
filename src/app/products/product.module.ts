@@ -9,7 +9,11 @@ import { ProductFilterPipe } from './product-filter.pipe';
 import { ProductService } from './product.service';
 import { ProductResolver } from './product-resolver.service';
 
+import { ProductEditInfoComponent } from './product-edit-info.component';
+import { ProductEditTagsComponent } from './product-edit-tags.component';
+
 import { SharedModule } from '../shared/shared.module';
+import { AuthGuardService } from '../user/auth-guard.service';
 
 @NgModule({
   imports: [
@@ -17,16 +21,28 @@ import { SharedModule } from '../shared/shared.module';
     RouterModule.forChild([
         {
           path: 'products', 
-          component: ProductListComponent},
-        {
-          path: 'products/:id', 
-          component: ProductDetailComponent, 
-          resolve: { product: ProductResolver}
-        },
-        {
-          path: 'products/:id/edit', 
-          component: ProductEditComponent, 
-          resolve: { product: ProductResolver}
+          canActivate: [AuthGuardService],
+          children: [
+            {
+              path: '', 
+              component: ProductListComponent,
+            },
+            {
+              path: ':id', 
+              component: ProductDetailComponent, 
+              resolve: { product: ProductResolver}
+            },
+            {
+              path: ':id/edit', 
+              component: ProductEditComponent, 
+              resolve: { product: ProductResolver},
+              children:[
+                { path: '', redirectTo: 'info', pathMatch: 'full' },
+                { path: 'info', component: ProductEditInfoComponent },
+                { path: 'tags', component: ProductEditTagsComponent }
+              ]
+            }
+          ]
         }
       ]),
   ],
@@ -34,7 +50,9 @@ import { SharedModule } from '../shared/shared.module';
     ProductListComponent,
     ProductDetailComponent,
     ProductEditComponent,
-    ProductFilterPipe
+    ProductFilterPipe,
+    ProductEditInfoComponent,
+    ProductEditTagsComponent
   ],
   providers: [
     ProductService,

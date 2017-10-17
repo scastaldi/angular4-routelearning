@@ -23,6 +23,13 @@ var LoginComponent = (function () {
             var password = loginForm.form.value.password;
             this.authService.login(userName, password);
             // Navigate to the Product List page after log in.
+            //   this.router.navigateByUrl(this.authService.redirectUrl);
+            // if (this.authService.redirectUrl){
+            //     this.router.navigateByUrl(this.authService.redirectUrl);
+            // }
+            // else {
+            //     this.router.navigate(['/products']);
+            // }
             this.router.navigate(['/products']);
         }
         else {

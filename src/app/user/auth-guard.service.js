@@ -10,29 +10,28 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 var core_1 = require("@angular/core");
 var router_1 = require("@angular/router");
-var MessageService = (function () {
-    function MessageService(router) {
+var auth_service_1 = require("./auth.service");
+var AuthGuardService = (function () {
+    function AuthGuardService(authService, router) {
+        this.authService = authService;
         this.router = router;
-        this.messages = [];
     }
-    MessageService.prototype.addMessage = function (message) {
-        var currentDate = new Date();
-        this.messages.unshift(message + ' at ' + currentDate.toLocaleString());
+    AuthGuardService.prototype.canActivate = function (route, state) {
+        return this.checkLoggedIn(state.url);
     };
-    MessageService.prototype.open = function () {
-        this.router.navigate([{ outlets: { popup: ['messages'] } }]);
-        this.isDisplayed = true;
+    AuthGuardService.prototype.checkLoggedIn = function (url) {
+        if (this.authService.isLoggedIn()) {
+            return true;
+        }
+        this.router.navigate([url]);
+        return false;
     };
-    MessageService.prototype.close = function () {
-        // Close the popup.
-        this.router.navigate([{ outlets: { popup: null } }]);
-        this.isDisplayed = false;
-    };
-    return MessageService;
+    return AuthGuardService;
 }());
-MessageService = __decorate([
+AuthGuardService = __decorate([
     core_1.Injectable(),
-    __metadata("design:paramtypes", [router_1.Router])
-], MessageService);
-exports.MessageService = MessageService;
-//# sourceMappingURL=message.service.js.map
+    __metadata("design:paramtypes", [auth_service_1.AuthService,
+        router_1.Router])
+], AuthGuardService);
+exports.AuthGuardService = AuthGuardService;
+//# sourceMappingURL=auth-guard.service.js.map

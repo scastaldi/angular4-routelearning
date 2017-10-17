@@ -31,5 +31,6 @@ export class MessageComponent {
 
     close(): void {
         // Close the popup.
+        this.messageService.close();
     }
 }
