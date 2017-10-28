@@ -1,3 +1,15 @@
+.fill { 
+    min-height: 800px;
+    min-width: 190px;
+    max-width: 190px;
+}
+
+.panel-primary > .panel-heading {
+    color: #fff;
+    background-color: #000000 grey;
+    border-color: #000000 grey;
+}
+
 li {
     font-size: large;
 }

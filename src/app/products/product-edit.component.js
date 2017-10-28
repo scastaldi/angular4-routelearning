@@ -84,20 +84,18 @@ var ProductEditComponent = (function () {
     ProductEditComponent.prototype.validate = function () {
         this.dataIsValid = {};
         if (this.product.productName &&
-            this.product.productName.length >= 3 &&
-            this.product.productCode) {
+            this.product.productName.length >= 3) {
             this.dataIsValid['info'] = true;
         }
         else {
-            this.dataIsValid['infor'] = false;
+            this.dataIsValid['info'] = false;
         }
-        if (this.product.category &&
-            this.product.category.length >= 3) {
-            this.dataIsValid['tags'] = true;
-        }
-        else {
-            this.dataIsValid['tags'] = false;
-        }
+        // if (this.product.category &&
+        //     this.product.category.length >= 3) {
+        //         this.dataIsValid['tags'] = true;
+        //     } else {
+        //         this.dataIsValid['tags'] = false;
+        //     }
     };
     return ProductEditComponent;
 }());

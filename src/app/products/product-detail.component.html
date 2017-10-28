@@ -1,7 +1,5 @@
-<div class="panel panel-primary" *ngIf="product">
-    <div class="panel-heading" style="font-size:large">
-        {{pageTitle + ": " + product.productName}}
-    </div>
+<div  *ngIf="product">
+
 
     <div class="panel-body">
         <div class="row">
@@ -27,13 +25,6 @@
                     <div class="col-md-6">{{product.price|currency:"USD":true}}</div>
                 </div>
                 <div class="row">
-                    <div class="col-md-3">5 Star Rating:</div>
-                    <div class="col-md-6">
-                        <ai-star [rating]="product.starRating">
-                        </ai-star>
-                    </div>
-                </div>
-                <div class="row">
                     <div class="col-md-3">Category:</div>
                     <div class="col-md-6">{{product.category}}</div>
                 </div>
@@ -54,7 +45,7 @@
         <div class="has-error" *ngIf="errorMessage">{{errorMessage}}</div>
     </div>
 
-    <div class="panel-footer">
+    <div >
         <a class="btn btn-default"
         [routerLink]="['/products']"
         [preserveQueryParams]="true"

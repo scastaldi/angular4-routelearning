@@ -65,11 +65,11 @@
 }
 
 .wizard .active {
-    background: #007ACC;
+    background: #0d57b3;
     color: #fff;
 }
 
     /* Adds the right arrow after the tab */
 .wizard .active:after {
-    border-left-color: #007ACC;
+    border-left-color: #0d57b3;
 }
